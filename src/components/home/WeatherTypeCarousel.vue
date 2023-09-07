@@ -36,7 +36,6 @@ export default {
 
 <style lang="scss">
 .weather-type{
-  // width: 360px;
   height: 38px;
   border-bottom: solid #868794 1px;
 }
@@ -48,6 +47,7 @@ export default {
   &__link{
     padding-bottom: 15px;
     border-bottom: solid #868794 1px;
+    white-space: nowrap;
     &:hover{
       transition: 0.09s;
       border-bottom: 1px solid #FFFFFF;
