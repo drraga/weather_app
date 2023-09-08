@@ -75,28 +75,41 @@ export  default{
 
     <div class="weather-text">
       <p class="weather-text__temperature">
-        {{ currentTempCelcius }}<span>&#176;</span> | Feels like <span class="weather-text__temperature_highlighted">{{ currentFeelsLikeTempC }}</span><span>&#176;</span> C
+        <span>{{ currentTempCelcius }}<span>&#176;</span> | Feels like <span class="weather-text__temperature_highlighted">{{ currentFeelsLikeTempC }}</span><span>&#176;</span> C</span>
       </p>
       <p class="weather-text__wind">
-        Wind <span class="weather-text__wind_highlighted"> {{ currentWindKPH }} KM/H </span> {{  currentWindDir }}
+        <span>Wind <span class="weather-text__wind_highlighted"> {{ currentWindKPH }} KM/H </span> {{  currentWindDir }}</span>
       </p>
     </div>
   </section>
 
   <section class="weather-details">
-    <div class="precipitation-wrapper">
+
+    <div class="weather-details__type precipitation-wrapper">
+      <figure>
+        <img src="../icons/precipitation.svg" alt="">
+      </figure>
       Precipitation: {{ currentPrecipitation }} mm
     </div>
-    <div class="humidity-wrapper">
+
+    <div class="weather-details__type humidity-wrapper">
       <figure>
-        <img src="" alt="">
+        <img src="../icons/humidity-small.svg" alt="">
       </figure>
       Humidity: {{ currentHumidity }} %
     </div>
-    <div class="wind-wrapper">
+
+    <div class="weather-details__type wind-wrapper">
+      <figure>
+        <img src="../icons/wind-icon.svg" alt="">
+      </figure>
       Wind: {{ currentWindKPH }} km/h
     </div>
-    <div class="sunset-wrapper">
+
+    <div class="weather-details__type sunset-wrapper">
+      <figure>
+        <img src="../icons/night-small.svg" alt="">
+      </figure>
       Sunrize/Sunset: 
     </div>
   </section>
@@ -148,6 +161,7 @@ export  default{
   }
 
 }
+
 .weather-text {
   display: flex;
   color: #9b9ead;
@@ -179,16 +193,18 @@ export  default{
 .weather-details{
   display: flex;
   flex-wrap: wrap;
-  flex-basis: 50%;
   font-size: 10px;
   color: #9B9EAD;
   padding: 22px 25px;
 
-    *{
-      width: 50%;
+    &__type{
+      display: flex;
+      align-items: center;
+      flex-basis: 50%;
+
+      img{
+        margin-right: 10px;
+      }
     }
-  }
-  .humidity-wrapper{
-    display: flex;
   }
 </style>
