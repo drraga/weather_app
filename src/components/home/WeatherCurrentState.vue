@@ -34,6 +34,12 @@ export  default{
     },
     currentWindKPH() {
       return this.weatherForecast?.current?.wind_kph
+    },
+    currentHumidity() {
+      return this.weatherForecast?.current?.humidity
+    },
+    currentPrecipitation() {
+      return this.weatherForecast?.current?.precip_mm
     }
   }
 }
@@ -43,19 +49,28 @@ export  default{
   <section class="current-weather-params">
     <div class="top-section">
       <figure class="weather-icon">
-      <img src="../icons/untitled-1.svg" alt="weather state">
-    </figure>
+        <img src="../icons/untitled-1.svg" alt="weather state">
+      </figure>
 
-    <div class="temperature">
-      <div class="temperature__digits">
-        {{ currentTempCelcius }}
+      <div class="temperature">
+        <div class="temperature__digits">
+          <span
+          class="temperature__digits__bold"
+          >
+            {{ currentTempCelcius }}
+          </span>
+          <span>
+            <sup
+            class="temperature__digits__degree"
+            >°</sup>
+          </span>
+        </div>
+        <div class="temperature__description">
+          <span>
+            {{ currentWeaterDescription }}
+          </span>
+        </div>
       </div>
-      <div class="temperature__description">
-        <span>
-          {{ currentWeaterDescription }}
-        </span>
-      </div>
-    </div>
     </div>
 
     <div class="weather-text">
@@ -63,15 +78,32 @@ export  default{
         {{ currentTempCelcius }}<span>&#176;</span> | Feels like <span class="weather-text__temperature_highlighted">{{ currentFeelsLikeTempC }}</span><span>&#176;</span> C
       </p>
       <p class="weather-text__wind">
-        Wind <span class="weather-text__wind_highlighted">{{ currentWindKPH }} KM/H</span> {{ currentWindDir }}
+        Wind <span class="weather-text__wind_highlighted"> {{ currentWindKPH }} KM/H </span> {{  currentWindDir }}
       </p>
+    </div>
+  </section>
+
+  <section class="weather-details">
+    <div class="precipitation-wrapper">
+      Precipitation: {{ currentPrecipitation }} mm
+    </div>
+    <div class="humidity-wrapper">
+      <figure>
+        <img src="" alt="">
+      </figure>
+      Humidity: {{ currentHumidity }} %
+    </div>
+    <div class="wind-wrapper">
+      Wind: {{ currentWindKPH }} km/h
+    </div>
+    <div class="sunset-wrapper">
+      Sunrize/Sunset: 
     </div>
   </section>
 </template>
 
 <style lang="scss">
 .current-weather-params{
-  height: 80px;
   font-size: 10px;
   padding: 0 25px;
 }
@@ -94,38 +126,40 @@ export  default{
   align-items: center;
 
   &__digits{
-    position:relative;
     font-size: 60px;
     font-weight: 700;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.18);
     background: -webkit-linear-gradient(#A2A4B5, #545760);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 49px;
 
-    &:after {
-      content: '°';
-      position:absolute;
-      top: 50px;
-      right: -14px;
-      font-size: 23px;
-      color: #9B9EAD;
+    &__bold {
+      font-weight: 700;
     }
+
+    &__degree {
+      font-size: 23px;
+      vertical-align: text-top;
+      }
   }
 
 }
 .weather-text {
   display: flex;
   color: #9b9ead;
-  justify-content: center;
   padding-bottom: 22px;
   border-bottom: dashed 0.5px #979797;
   
 
   &__temperature {
     border-right: solid 1px;
-    padding-right: 30px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
 
     &_highlighted {
       color: #ffffff;
@@ -133,11 +167,28 @@ export  default{
   }
 
   &__wind {
-    padding-left: 31px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
     &_highlighted {
       color: #ffffff;
     }
   }
 }
 
+.weather-details{
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: 50%;
+  font-size: 10px;
+  color: #9B9EAD;
+  padding: 22px 25px;
+
+    *{
+      width: 50%;
+    }
+  }
+  .humidity-wrapper{
+    display: flex;
+  }
 </style>
