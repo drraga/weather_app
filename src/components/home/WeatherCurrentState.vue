@@ -5,11 +5,7 @@ export  default{
   name: 'WeatherCurrentState',
   data() {
     return {
-      paramObject: {
-        q: '',
-        lang: '',
-        key: import.meta.env.weatherAPI,
-      },
+      weatherForecast:{},
       place: 'Novorossiysk',
     }
   },
@@ -17,9 +13,27 @@ export  default{
     this.getCurrentWeatherSelectedPlace(this.place)
   },
   methods: {
-    getCurrentWeatherSelectedPlace(place) {
-      this.paramObject.q = place
-      this.getCurrentWeather(this.paramObject)
+    async getCurrentWeatherSelectedPlace(place) {
+      const response = await getCurrentWeather(place.toLowerCase())
+      this.weatherForecast = await response.data
+      console.log(this.weatherForecast)
+    }
+  },
+  computed: {
+    currentTempCelcius() {
+      return this.weatherForecast?.current?.temp_c
+    },
+    currentWeaterDescription() {
+      return this.weatherForecast?.current?.condition?.text
+    },
+    currentFeelsLikeTempC() {
+      return this.weatherForecast?.current?.feelslike_c
+    },
+    currentWindDir() {
+      return this.weatherForecast?.current?.wind_dir
+    },
+    currentWindKPH() {
+      return this.weatherForecast?.current?.wind_kph
     }
   }
 }
@@ -34,12 +48,12 @@ export  default{
 
     <div class="temperature">
       <div class="temperature__digits">
-        33
+        {{ currentTempCelcius }}
       </div>
       <span class="temperature__symbol">&#176;</span>
       <div class="temperature__description">
         <span>
-          Partly Cloudy
+          {{ currentWeaterDescription }}
         </span>
       </div>
     </div>
@@ -47,10 +61,10 @@ export  default{
 
     <div class="weather-text">
       <p class="weather-text__temperature">
-        29<span>&#176;</span>/27<span>&#176;</span> | Feels like <span class="weather-text__temperature_highlighted">39</span><span>&#176;</span>C
+        {{ currentTempCelcius }}<span>&#176;</span> | Feels like <span class="weather-text__temperature_highlighted">{{ currentFeelsLikeTempC }}</span><span>&#176;</span> C
       </p>
       <p class="weather-text__wind">
-        Wind <span class="weather-text__wind_highlighted">9 KM/H</span> WSW
+        Wind <span class="weather-text__wind_highlighted">{{ currentWindKPH }} KM/H</span> {{ currentWindDir }}
       </p>
     </div>
 
@@ -73,6 +87,13 @@ export  default{
 
 .temperature{
   padding-top: 26px;
+  padding-left: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
   &__digits{
     font-size: 60px;
     font-weight: 700;
@@ -83,18 +104,23 @@ export  default{
     -webkit-text-fill-color: transparent;
     line-height: 49px;
   }
+
+  &__description {
+  }
+
   &__symbol {
-    display: inline-block;
-    padding-top: 15px;
+    position:absolute;
+    top: 50px;
+    right: -14px;
+    // line-height: 23px;
     font-size: 23px;
-    vertical-align: top;
     color: #9B9EAD;
   }
 }
 .weather-text {
   display: flex;
   color: #9b9ead;
-  padding: 0px 25px;
+  justify-content: center;
   padding-bottom: 22px;
   border-bottom: dashed 1px #979797;
 
