@@ -43,14 +43,13 @@ export  default{
   <section class="current-weather-params">
     <div class="top-section">
       <figure class="weather-icon">
-      <img src="../icons/sunny-weather.svg" alt="weather state">
+      <img src="../icons/untitled-1.svg" alt="weather state">
     </figure>
 
     <div class="temperature">
       <div class="temperature__digits">
         {{ currentTempCelcius }}
       </div>
-      <span class="temperature__symbol">&#176;</span>
       <div class="temperature__description">
         <span>
           {{ currentWeaterDescription }}
@@ -67,7 +66,6 @@ export  default{
         Wind <span class="weather-text__wind_highlighted">{{ currentWindKPH }} KM/H</span> {{ currentWindDir }}
       </p>
     </div>
-
   </section>
 </template>
 
@@ -75,26 +73,28 @@ export  default{
 .current-weather-params{
   height: 80px;
   font-size: 10px;
+  padding: 0 25px;
 }
 
 .top-section{
   display: flex;
+  padding-bottom: 16px;
 }
 
 .weather-icon{
-  margin-right: 44px;
+  width: 50%;
 }
 
 .temperature{
-  padding-top: 26px;
-  padding-left: 25px;
+  position: relative;
+  width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  position: relative;
 
   &__digits{
+    position:relative;
     font-size: 60px;
     font-weight: 700;
     display: inline-block;
@@ -103,30 +103,30 @@ export  default{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 49px;
+
+    &:after {
+      content: '°';
+      position:absolute;
+      top: 50px;
+      right: -14px;
+      font-size: 23px;
+      color: #9B9EAD;
+    }
   }
 
-  &__description {
-  }
-
-  &__symbol {
-    position:absolute;
-    top: 50px;
-    right: -14px;
-    // line-height: 23px;
-    font-size: 23px;
-    color: #9B9EAD;
-  }
 }
 .weather-text {
   display: flex;
   color: #9b9ead;
   justify-content: center;
   padding-bottom: 22px;
-  border-bottom: dashed 1px #979797;
+  border-bottom: dashed 0.5px #979797;
+  
 
   &__temperature {
     border-right: solid 1px;
     padding-right: 30px;
+
     &_highlighted {
       color: #ffffff;
     }
@@ -139,4 +139,5 @@ export  default{
     }
   }
 }
+
 </style>
