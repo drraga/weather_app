@@ -17,17 +17,17 @@ export default {
 </script>
 
 <template>
-    <carousel
-      :items-to-show="3.5" 
-      class="weather-type"
-      :mouseDrag="true"
-      :touchDrag="true"
-      >
+  <carousel
+    :items-to-show="3.5" 
+    class="weather-type-carousel"
+    :mouseDrag="true"
+    :touchDrag="true"
+    >
       <slide 
         v-for="slide in forecastTypes"
         :key="slide"
-        class="selected-forecast">
-          <a href=":;" class="selected-forecast__link">
+        class="weather-type-carousel__item">
+          <a href=":;" class="weather-type-carousel__item__link">
             {{ slide }}
           </a>
       </slide>
@@ -35,19 +35,21 @@ export default {
 </template>
 
 <style lang="scss">
-.weather-type{
+.weather-type-carousel{
   height: 38px;
+  width: 100%;
   border-bottom: solid #868794 1px;
 }
-.carousel__track{
-  height: 38px;
-  align-items: stretch;
-}
-.selected-forecast{
+
+.weather-type-carousel__item{
+  width: 100%;
+
   &__link{
     padding-bottom: 15px;
     border-bottom: solid #868794 1px;
     white-space: nowrap;
+    overflow: hidden;
+
     &:hover{
       transition: 0.09s;
       border-bottom: 1px solid #FFFFFF;
